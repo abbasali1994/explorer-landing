@@ -32,7 +32,7 @@ function App() {
     if (prevPref) {
       const prevPrefValue = JSON.parse(prevPref);
       if (new Date().getTime() - prevPrefValue.timestamp < EXPIRY_DURATION) {
-        // window.location.replace(createUrl(prevPrefValue.preference));
+        window.location.replace(createUrl(prevPrefValue.preference));
       }
     }
   }, []);
