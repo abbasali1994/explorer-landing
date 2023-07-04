@@ -3,6 +3,10 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import ReactGA from 'react-ga';
+import { GA_MEASUREMENT_ID } from './utils/constants';
+
+ReactGA.initialize(GA_MEASUREMENT_ID);
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

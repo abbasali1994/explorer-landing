@@ -3,6 +3,7 @@ import "./App.css";
 import { Button } from "./components/button";
 import { Details } from "./components/details";
 import { ACTION_PARAM, BASE_URL, EXPIRY_DURATION } from "./utils/constants";
+import useAnalyticsEventTracker from "./hooks/useAnalyticsEventTracker";
 
 const storeInLocalStorage = (preference: string) => {
   localStorage.setItem("explorer-landing", JSON.stringify({ preference, timestamp: new Date().getTime() }));
@@ -24,21 +25,24 @@ const createUrl = (label: string) => {
   }
   return newUrl;
 };
+const hash = processPath()[1];
 
 function App() {
-  const hash = processPath()[1];
+  const gaEventTracker = useAnalyticsEventTracker('Explorer Selection');
   useEffect(() => {
     if(hash === "clear-cache") localStorage.removeItem("explorer-landing") 
     const prevPref = localStorage.getItem("explorer-landing");
     if (prevPref) {
       const prevPrefValue = JSON.parse(prevPref);
       if (new Date().getTime() - prevPrefValue.timestamp < EXPIRY_DURATION) {
+        gaEventTracker("redirect", prevPrefValue.preference);
         window.location.replace(createUrl(prevPrefValue.preference));
       }
     }
-  }, []);
+  }, [gaEventTracker]);
 
   const handleClick = (label: string) => {
+    gaEventTracker("new redirect", label);
     storeInLocalStorage(label);
     window.location.replace(createUrl(label));
   };

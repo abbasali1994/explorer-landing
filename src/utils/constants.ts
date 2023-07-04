@@ -21,3 +21,5 @@ export const ACTION_PARAM: { [key: string]: { [key: string]: string } } = {
     blocks: "/blocks/",
   },
 };
+
+export const GA_MEASUREMENT_ID = "G-CFTEXMH6CG"; // YOUR_OWN_TRACKING_ID
