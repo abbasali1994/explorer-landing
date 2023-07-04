@@ -28,6 +28,7 @@ const createUrl = (label: string) => {
 function App() {
   const hash = processPath()[1];
   useEffect(() => {
+    if(hash === "clear-cache") localStorage.removeItem("explorer-landing") 
     const prevPref = localStorage.getItem("explorer-landing");
     if (prevPref) {
       const prevPrefValue = JSON.parse(prevPref);
